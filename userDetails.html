@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details</title>
+    <link rel="stylesheet" href="userDetails.css">
+</head>
+<body>
+    <div class="topheading"><h2>Product Details</h2></div>
+   <div class="pagecontent">
+       <div id="productPhoto"></div>
+    <div id="userDetails"></div>
+</div>
+
+    <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-analytics.js";
+      import {
+        getFirestore,
+        doc,
+        getDoc,
+        getDocs,
+        onSnapshot,
+        collection,
+      } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyBGuqMSAt0HBxQMx7ou70JmtdQVUiQ-lPc",
+    authDomain: "eduswap-e2a03.firebaseapp.com",
+    databaseURL: "https://eduswap-e2a03-default-rtdb.firebaseio.com",
+    projectId: "eduswap-e2a03",
+    storageBucket: "eduswap-e2a03.appspot.com",
+    messagingSenderId: "1049115558709",
+    appId: "1:1049115558709:web:f5fd6081437dd6c81a427c"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const db = getFirestore();
+
+
+        // Get the user ID from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('userId');
+
+        
+
+
+        // Function to get user details and display them
+        async function getUserDetails(userId) {
+            const docRef = doc(db, "users", userId);
+            const docSnap = await getDoc(docRef);
+            const userData = docSnap.data();
+
+            const productimage = document.createElement("img");
+        productimage.src = userData.imageURL; 
+        productimage.alt = "Product Image";
+
+        
+            
+
+            // Display user details on the page
+            const userDetailsDiv = document.getElementById("userDetails");
+            userDetailsDiv.innerHTML = `
+                <h2>${userData.title}</h2>
+                <p>Price: ₹${userData.price}</p>
+                <p>Description: ${userData.description}</p>
+                <p>Contact: +91${userData.contact}</p>
+                
+            `;
+
+            const productPhoto1 = document.getElementById("productPhoto")
+            productPhoto1.appendChild(productimage)
+
+        
+        }
+
+        // Call the function to get user details
+        getUserDetails(userId);
+    </script>
+</body>
+</html>

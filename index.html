@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EduSwap</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="hero-section">
+      <div class="nav-bar">
+        <div class="nav-logo">
+          <img width="200px" src="final-logo.png" alt="" />
+        </div>
+        <div class="nav-ops">
+          <p style="color: black; font-size: 20px">
+            <i class="fa-solid fa-user-tie"></i>&nbsp;<a href="#ABOUTUS"
+              >About us</a
+            >
+          </p>
+          <p style="color: black; font-size: 20px">
+            <i class="fa-solid fa-cart-shopping"></i
+            ><a href="#SHOPNOW">&nbsp;Shop now</a>
+          </p>
+         
+          
+        </div>
+      </div>
+      <div class="hero-text">
+        <h1>
+          Swap your college merchandise <br />
+          &emsp;&emsp;with fellow PICTians !
+        </h1>
+      </div>
+
+      <div class="btn">
+        <a  href="#SHOPNOW"  class="buysell"  style="--clr: #1e9bff"
+          ><span>BUY</span> <i></i
+        ></a>
+        <a class="buysell" href="./Sellinterface.html" target="_blank" style="--clr: #ff1867"
+          ><span>SELL</span><i></i
+        ></a>
+      </div>
+    </div>
+    <div class="v_container">
+      <marquee behavior="" direction=""></marquee>
+      <div id="SHOPNOW" class="v_catogaries">
+        <div class="vbooks v_box">
+          <img src="./bookneww.png" alt="" />
+          <h2>Book</h2>
+        </div>
+        <div class="vstationaary v_box">
+          <img src="./stationarynew.webp" alt="" />
+          <h2>Stationery</h2>
+        </div>
+        <div class="velectronics v_box">
+          <img src="./electronics.jpg" alt="" />
+          <h2>Electronics</h2>
+        </div>
+        <div class="vother v_box">
+          <img src="./bookAI.png" alt="" />
+          <h2>Other</h2>
+        </div>
+      </div>
+
+      <div class="v_shopsection">
+        <div class="v_shopsection_heading"><h2>SHOP SECTION</h2></div>
+         <div id="v_shopsection_products" class="v_shopsection_products1"> <!--//changes ### -->
+          
+        </div>
+      </div>
+    </div>
+    <div id="ABOUTUS" class="v_about_us_container">
+      <div class="v_about_us_heading">
+        <h2>The Team behind</h2>
+        <img src="./final-logo.png" alt="" />
+      </div>
+
+      <div class="v_about_us_top_div">
+        <div class="v_about_us_content_div">
+          <img src="FinalAU2.jpg.png" alt="" />
+          <h3>Vivek Falke</h3>
+          <a href="https://www.linkedin.com/in/vivek-falke-0ab84a27b"><i class="fa-brands fa-linkedin"></i></a>
+          
+        </div>
+        <div class="v_about_us_content_div">
+          <img src="FinalAU5.jpg" alt="" />
+          <h3>Harshal Bhusare</h3>
+          <a href=""><i class="fa-brands fa-linkedin"></i></a>
+        </div>
+        <div class="v_about_us_content_div">
+          <img src="FinalAU4.jpg" alt="" />
+          <h3>Omair Potrick</h3>
+          <a href=""><i class="fa-brands fa-linkedin"></i></a>
+        </div>
+      </div>
+      <div class="v_about_us_bottom_div">
+        <div class="v_about_us_content_div">
+          <img src="FinalAU3.jpg" alt="" />
+          <h3>Ved Sahasrabudhe</h3>
+          <a href="https://www.linkedin.com/in/ved-sahasrabudhe-394ba7285?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BTbdvWkRtToazpg7obPZJ7g%3D%3D"><i class="fa-brands fa-linkedin"></i></a>
+        </div>
+        <div class="v_about_us_content_div">
+          <img src="FinalAU1.jpg" alt="" />
+          <h3>Harshad Shinde</h3>
+          <a href=""><i class="fa-brands fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+    <script src="./mainscript.js"></script>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-analytics.js";
+      import {
+        getFirestore,
+        doc,
+        getDoc,
+        getDocs,
+        onSnapshot,
+        collection,
+      } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyBGuqMSAt0HBxQMx7ou70JmtdQVUiQ-lPc",
+    authDomain: "eduswap-e2a03.firebaseapp.com",
+    databaseURL: "https://eduswap-e2a03-default-rtdb.firebaseio.com",
+    projectId: "eduswap-e2a03",
+    storageBucket: "eduswap-e2a03.appspot.com",
+    messagingSenderId: "1049115558709",
+    appId: "1:1049115558709:web:f5fd6081437dd6c81a427c"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const db = getFirestore();
+
+
+
+      
+
+     // -----------Get all Data----------------------//
+
+async function GetAllDataOnce() {
+  const querySnapshot = await getDocs(collection(db, "users"));
+  querySnapshot.forEach((doc) => {
+    const data = doc.data();
+    const shopBox = document.createElement("div");
+    shopBox.className = "v_shopbox";
+    
+    // Creating elements for title, price, and contact
+    const title = document.createElement("h2");
+    title.textContent = data.title;
+    const price = document.createElement("p");
+    price.textContent = `₹${data.price}`;
+    const contact = document.createElement("p");
+    contact.textContent = `+91${data.contact}`;
+
+    const seeMoreLink = document.createElement("a");
+    seeMoreLink.textContent = "See more";
+    seeMoreLink.href = `userDetails.html?userId=${doc.id}`; // Pass the user ID as URL parameter
+
+
+    // Creating image element
+    const image = document.createElement("img");
+    image.src = data.imageURL; // Set the image source to the URL from Firestore
+    image.alt = "Product Image";
+
+    // Appending elements to shopBox
+    shopBox.appendChild(image);
+    shopBox.appendChild(title);
+    shopBox.appendChild(price);
+    shopBox.appendChild(contact);
+    shopBox.appendChild(seeMoreLink);
+    // shopBox.appendChild(description);
+
+    document.getElementById("v_shopsection_products").appendChild(shopBox);
+  });
+}
+
+// Call the function to get data and display images
+GetAllDataOnce();
+
+
+      
+
+    </script>
+  </body>
+</html>
